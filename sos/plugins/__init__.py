@@ -198,7 +198,9 @@ class Plugin(object):
         expression string or compiled re object. The portion of the file
         to be replaced is specified via regexp and the replacement string
         is passed in subst.'''
-	match = pathexp.match
+        if not hasattr(pathexp, "match"):
+            pathexp = re.compile(pathexp)
+        match = pathexp.match
         file_list = [f for f in self.copied_files if match(f['srcpath'])]
         for file in file_list:
             self.do_file_sub(file['srcpath'], regexp, subst)
