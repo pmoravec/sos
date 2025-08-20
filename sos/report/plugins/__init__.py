@@ -1317,7 +1317,7 @@ class Plugin():
             replacements = 0
         return replacements
 
-    def do_paths_http_sub(self, pathspecs):
+    def do_paths_http_sub(self, pathspecs, protocol="http(s)?"):
         """ Obfuscate Basic_AUTH URL credentials in all files in the given
         list. Proxy setting without protocol is ignored, since that is
         not recommended setting and obfuscating that one can hit false
@@ -1330,7 +1330,7 @@ class Plugin():
             pathspecs = [pathspecs]
         for path in pathspecs:
             self.do_path_regex_sub(
-                path, r"http(s)?://\S+:\S+@", r"http\1://******:******@")
+                path, fr"{protocol}://\S+:\S+@", r"http\1://******:******@")
 
     def do_path_regex_sub(self, pathexp, regexp, subst):
         """Apply a regexp substituation to a set of files archived by
