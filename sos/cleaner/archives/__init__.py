@@ -312,7 +312,7 @@ class SoSObfuscationArchive():
         self.log_info(f"Converting certificate file '{fname}' to text")
         sos_get_command_output(
             f"openssl storeutl -noout -text -certs {str(fname)}",
-            to_file=f"{fname}.text")
+            to_file=f"{fname}.text", timeout=10)
         os.remove(fname)
 
     def remove_file(self, fname):
